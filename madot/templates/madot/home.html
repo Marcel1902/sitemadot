@@ -1,0 +1,335 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+    <link rel="shortcut icon" href="{% static 'madot/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'madot/css/style.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>MADOT</title>
+</head>
+<body>
+<div class="main">
+    <header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between fixed-top">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'madot/images/logo-remove.png' %}" alt="Logo" style="height: 10vh;">
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#home">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about-2">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#destinations">Destinations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <!-- Book Now Button -->
+                    <button class="nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#destinationform" aria-label="Open booking form">
+                        Book Now
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="search d-flex me-5">
+            <a href="mailto:office@madagastours.com" class="text-dark me-3" style="font-size: 17px; text-decoration: none; font-weight: 500;">
+                <i class="fa-solid fa-envelope"></i> office@madagastours.com
+            </a>
+            <a href="tel:+261332317350" class="text-dark" style="font-size: 17px; text-decoration: none; font-weight: 500;">
+                <i class="fa-solid fa-phone"></i> +261 33 23 173 50
+            </a>
+        </div>
+
+        <!-- Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="destinationform" tabindex="-1" aria-labelledby="destinationformLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center"  style="font-size: 30px;font-family: 'Dancing Script', cursive; font-weight: bolder; color: #FFA652;" id="destinationformLabel">Book Your Destination</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'send' %}" method="post">
+                    <!-- CSRF Token -->
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nom" class="form-label">Votre Nom:</label>
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom et Prénom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="adresse" class="form-label">Adresse:</label>
+                            <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="mail-adresse" class="form-label">Votre Email:</label>
+                            <input type="email" class="form-control" id="mail-adresse" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Téléphone:</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nb_personnes" class="form-label">Nombre de personnes:</label>
+                            <input type="number" class="form-control" id="nb_personnes" name="nb_personnes" value="1" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_depart" class="form-label">Date de départ:</label>
+                            <input type="date" class="form-control" id="date_depart" name="date_depart" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="date_retour" class="form-label">Date de retour:</label>
+                            <input type="date" class="form-control" id="date_retour" name="date_retour" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="destination" class="form-label">Choisissez une destination:</label>
+                            <select class="form-select" id="destination" name="destination" required>
+                                {% for destination in destinations %}
+                                    <option value="{{ destination.title }}">{{ destination.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentaire" class="form-label">Commentaires:</label>
+                            <textarea class="form-control" id="commentaire" name="commentaire" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Réserver</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+   <div class="home" id="home">
+        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+      <!-- Indicateurs -->
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Diapositive 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Diapositive 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Diapositive 3"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Diapositive 4"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Diapositive 5"></button>
+      </div>
+
+      <!-- Conteneur des diapositives -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'madot/images/1.jpg' %}" class="d-block w-100" alt="photo 1">
+          <div class="overlay"></div> <!-- Superposition semi-transparente -->
+          <div class="carousel-caption centered-caption">
+            <h3>Découvrez le monde avec MADAGASTOURS</h3>
+            <p>Nous vous proposons des expériences uniques et inoubliables à travers le monde.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'madot/images/2.jpg' %}" class="d-block w-100" alt="photo 2">
+          <div class="overlay"></div>
+          <div class="carousel-caption centered-caption">
+            <h3>Des destinations sur mesure</h3>
+            <p>Nos experts en voyage créent des itinéraires personnalisés pour répondre à toutes vos envies.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'madot/images/3.jpg' %}" class="d-block w-100" alt="photo 3">
+          <div class="overlay"></div>
+          <div class="carousel-caption centered-caption">
+            <h3>Voyagez en toute tranquillité</h3>
+            <p>Avec MADAGASTOURS, profitez d'une organisation impeccable et d'un accompagnement professionnel.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'madot/images/4.jpg' %}" class="d-block w-100" alt="photo 4">
+          <div class="overlay"></div>
+          <div class="carousel-caption centered-caption">
+            <h3>Explorez des paysages époustouflants</h3>
+            <p>Des plages tropicales aux montagnes majestueuses, laissez-vous émerveiller par la beauté du monde.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'madot/images/6.jpg' %}" class="d-block w-100" alt="photo 5">
+          <div class="overlay"></div>
+          <div class="carousel-caption centered-caption">
+            <h3>Votre aventure commence ici</h3>
+            <p>Faites de votre rêve de voyage une réalité avec MADAGASTOURS.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+   <!-- About 2 Section -->
+<section id="about-2" class="about-2 section mt-5">
+  <div class="container-fluid">
+    <div class="content">
+      <div class="row justify-content-center">
+        <div class="col-sm-12 col-md-5 col-lg-4 col-xl-4 order-lg-2 offset-xl-1 mb-4">
+          <div class="img-wrap text-center text-md-left" data-aos="fade-up" data-aos-delay="100">
+            <div class="img">
+              <img src="{% static 'madot/images/about2.jpg' %}" alt="circle image" class="img-fluid">
+            </div>
+          </div>
+        </div>
+
+        <div class="offset-md-0 offset-lg-1 col-sm-12 col-md-5 col-lg-5 col-xl-4" data-aos="fade-up">
+          <div class="px-3">
+            <h2 class="content-title text-start">
+              Explorez le monde avec confiance et sérénité grâce à notre expertise.
+            </h2>
+            <p class="lead">
+              Nous vous offrons des expériences de voyage authentiques et inoubliables, adaptées à chaque voyageur et chaque destination. Découvrez des endroits fascinants et vivez des aventures uniques en toute tranquillité.
+            </p>
+            <p class="mb-5">
+              En tant que passionnés de voyages, nous mettons tout en œuvre pour créer des itinéraires sur mesure, des circuits d’exception et des séjours immersifs, afin de répondre aux attentes de chacun et d'offrir des souvenirs impérissables.
+            </p>
+            <p>
+              <a href="#" class="btn-get-started btn">Commencez l'Aventure</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /About 2 Section -->
+    <!-- Destinations section -->
+    <section id="destinations" class="destinations section mt-5">
+        <div class="container">
+            <h2 class="page-header text-center mb-5">Destinations</h2>
+            <div class="row">
+                {% for destination in destinations %}
+                <div class="col-md-4 mb-3 destination-card" data-title="{{ destination.title }}">
+                    <div class="card" data-aos="fade-up">
+                        <img src="{{ destination.photo.url }}" class="card-img-top" alt="{{ destination.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ destination.title }} </h5>
+                            <p class="card-text">{{ destination.highlights|linebreaks }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'destination' destination.id %}" class="btn btn-primary" style="background-color: #FFA652; border: none;">Voir plus</a>
+                                <span class="text-right">{{ destination.prix }}$</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="section contact mt-5 mb-5" id="contact">
+        <div class="container">
+            <div class="row shadow">
+                <div class="col-md-6 m-0 d-flex flex-column justify-content-center align-items-center contactinfo text-light">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3717.244458233217!2d47.60683737619303!3d-21.30135478247591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x21e88f478d94c59f%3A0xfb40e72d6abcfcea!2sMadagas%20Tours!5e0!3m2!1sfr!2smg!4v1731669097112!5m2!1sfr!2smg" width="660" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-md-6 p-5 contact-form">
+                    <h2 class="section-title text-center">Contactez-nous</h2>
+                    <form method="post" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="name">Votre Nom:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Nom et Prénom" name="nom">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email">Votre Email:</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="sujet">Sujet:</label>
+                            <input type="text" class="form-control" id="sujet" rows="3" placeholder="Objet de votre mail" name="sujet">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="message">Votre Message:</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Votre message" name="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="footer mt-5 p-5">
+        <footer id="footer" role="contentinfo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="copyright text-center">
+                            <img src="{% static 'madot/images/logo-remove.png' %}" alt="" style="width:20vh;">
+                            <p>Make your dream come true</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="social-links text-center">
+                            <h5 class="social-text">Suivez-nous sur</h5>
+                            <a href="https://web.facebook.com/Madagastours?locale=fr_FR" class="facebook p-3"><i class="fa-brands fa-facebook" style="font-size: 30px;"></i></a>
+                            <a href="https://www.linkedin.com/in/madagas-tours-9864372a7/?originalSubdomain=mg" class="linkedin p-3"><i class="fa-brands fa-linkedin" style="font-size: 30px;"></i></a>
+                            <a href="https://www.instagram.com/madagas_tours/" class="instagram p-3"><i class="fa-brands fa-instagram" style="font-size: 30px;"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-info text-center">
+                            <h5 class="contact-text">Contactez-nous</h5>
+                            <p><i class="fa-solid fa-location-dot"></i> MadagasTours Ankarimaso 1 Ifanadiana 312 Madagascar</p>
+                            <a href="mailto:office@madagastours.com"><i class="fa-solid fa-envelope"></i> office@madagastours.com</a>
+                            <a href="tel:+261332317350"><i class="fa-solid fa-phone"></i> +261 33 23 173 50</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="text-center">&copy;2022 Madagastours. All rights reserved</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script>
+  AOS.init();
+     $(document).ready(function() {
+        // Filtre les destinations en fonction de l'entrée de recherche
+        $('#search').on('keyup', function() {
+            let query = $(this).val().toLowerCase();
+            console.log("Recherche:", query);  // Debug : affichage de la recherche
+
+            // Boucle sur chaque carte de destination
+            $('.destination-card').each(function() {
+                let title = $(this).data('title').toLowerCase();
+                console.log("Titre de la carte:", title);  // Debug : affichage du titre de la carte
+
+                // Affiche ou masque la carte en fonction de la recherche
+                $(this).toggle(title.includes(query));
+            });
+        });
+    });
+</script>
+</body>
+</html>

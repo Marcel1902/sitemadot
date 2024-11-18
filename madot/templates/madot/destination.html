@@ -1,0 +1,98 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+    <link rel="shortcut icon" href="{% static 'madot/images/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'madot/css/destination.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <title>{{ destinations.title }}</title>
+</head>
+<body>
+<header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+                    <a class="navbar-brand" href="#"><img src="{% static 'madot/images/logo-remove.png' %}" alt="Logo" style="height: 10vh;"></a>
+                    <div class="collapse navbar-collapse me-auto ml-5" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url 'home' %}">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn active" type="button" href="#" style="background-color: #FFA652; font-weight: bold;border-radius: 10px;">Book Now</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="navbar-toggler flex-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="search flex-end me-5">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" id="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Rechercher</button>
+                    </form>
+                </div>
+        </nav>
+    </header>
+    <div class="container mt-5">
+        <h1 data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 60px;" class="text-center pb-5">{{ destination.title }}
+            <br><span style="font-size: 20px; color: #538135;">{{ destination.les_destinations }}</span></h1>
+        <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31;"><strong>HIGHLIGHTS:<br></strong> {{ destination.highlights|linebreaks }}</p>
+        <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 20px;"><strong style="color:#000; font-size: 20px;">Prix:</strong> ${{ destination.prix }}</p>
+
+        {% if destination.photo %}
+            <img src="{{ destination.photo.url }}" alt="{{ destination.title }}" style="max-width: 100%; height: auto;" data-aos="fade-up-right" data-aos-delay="100">
+        {% endif %}
+        <div class="itinerary mt-5 p-5 mb-5 shadow" data-aos="fade-up" data-aos-delay="100">
+            <h2 style="color:#ed7d31;" class="text-center">ITINERARY</h2>
+            <ul>
+                <!-- Liste des itinéraires pour chaque jour -->
+                {% for itinerary in destination.itineraries.all %}
+                    <li class="pb-5" data-aos="fade-up" data-aos-delay="100">
+                        <h3 style="color: #678f4c;">Day {{ itinerary.day_number }}: {{ itinerary.title }}</h3>
+                        <p>{{ itinerary.description }}</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {% if itinerary.photo %}
+                                <img src="{{ itinerary.photo.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if itinerary.photo2 %}
+                                <img src="{{ itinerary.photo2.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <p data-aos="fade-up" data-aos-delay="100"><strong style="color: #678f4c;">Include:<br></strong> {{ destination.price_include|linebreaks }}</p>
+        <p><strong style="color: #678f4c;">Exclude:<br></strong> {{ destination.price_exclude|linebreaks }}</p>
+    </div>
+<footer class="footer p-5 mt-5">
+    <div class="container">
+        <p class="text-center">&copy; madagas_tours outbound. All rights reserved.</p>
+        <div>
+            <ul class="d-flex flex-row justify-content-center">
+                <li style="list-style:none; margin-right: 5px;"> <b style="color: #678f4c;">tel</b>: +261 33 43 588 50</li>
+                <li style="list-style:none; margin-right: 5px;"> <b style="color: #678f4c;">email</b>: office@madagastours.com</li>
+                <li style="list-style:none; margin-right: 5px;"> <b style="color: #678f4c;">web</b>: www.madagastours.com</li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>
