@@ -25,6 +25,11 @@ class DayItinerary(models.Model):
     class Meta:
         ordering = ['day_number']  # Tri par ordre des jours
 
+    @property
+    def duration(self):
+        # Nombre total de jours pour les itinéraires associés
+        return self.itineraries.count()
+
     def __str__(self):
         return f"{self.destination} - Day {self.day_number}: {self.title}"
 

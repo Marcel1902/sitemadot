@@ -1,5 +1,9 @@
+from django.contrib import messages
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
-from django.shortcuts import render, get_object_or_404
+from django.conf import settings
+from django.shortcuts import render
 
 from sitemadot import settings
 from .models import Destination
@@ -30,49 +34,62 @@ def send_contact_email(request):
 
     return render(request, 'madot/home.html')
 
-from django.core.mail import send_mail
-from django.conf import settings
-from django.shortcuts import render
 
 def send_destination_email(request):
     if request.method == 'POST':
-        # Récupérer les données du formulaire
-        nom = request.POST.get('nom')
-        adresse = request.POST.get('adresse')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        nb_personnes = request.POST.get('nb_personnes')
-        date_depart = request.POST.get('date_depart')
-        date_retour = request.POST.get('date_retour')
-        destination = request.POST.get('destination')
-        commentaire = request.POST.get('commentaire')
+        try:
+            # Récupérer les données du formulaire
+            nom = request.POST.get('nom', '').strip()
+            adresse = request.POST.get('adresse', '').strip()
+            email = request.POST.get('email', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            nb_personnes = request.POST.get('nb_personnes', '').strip()
+            date_depart = request.POST.get('date_depart', '').strip()
+            date_retour = request.POST.get('date_retour', '').strip()
+            destination = request.POST.get('destination', '').strip()
+            commentaire = request.POST.get('commentaire', '').strip()
 
-        # Sujet de l'email
-        sujet = "Nouvelle réservation de destination"
+            # Valider les données importantes
+            if not (nom and email and phone and date_depart and date_retour and destination):
+                messages.error(request, "Veuillez remplir tous les champs obligatoires.")
+                return render(request, 'madot/home.html')
 
-        # Contenu du message
-        message = (
-            f"Nom : {nom}\n"
-            f"Adresse : {adresse}\n"
-            f"Email : {email}\n"
-            f"Téléphone : {phone}\n"
-            f"Nombre de personnes : {nb_personnes}\n"
-            f"Date de départ : {date_depart}\n"
-            f"Date de retour : {date_retour}\n"
-            f"Destination : {destination}\n"
-            f"Commentaire : {commentaire}"
-        )
+            # Sujet de l'email
+            sujet = "Nouvelle réservation de destination"
 
-        # Envoi de l'email
-        send_mail(
-            sujet,  # Sujet de l'email
-            message,  # Contenu du message
-            email,  # Adresse e-mail de l'expéditeur (utilisateur)
-            [settings.DEFAULT_FROM_EMAIL],  # Liste des destinataires (vous)
-        )
+            # Contenu du message
+            message = (
+                f"Nom : {nom}\n"
+                f"Adresse : {adresse}\n"
+                f"Email : {email}\n"
+                f"Téléphone : {phone}\n"
+                f"Nombre de personnes : {nb_personnes}\n"
+                f"Date de départ : {date_depart}\n"
+                f"Date de retour : {date_retour}\n"
+                f"Destination : {destination}\n"
+                f"Commentaire : {commentaire}"
+            )
 
-        # Ajouter un message de confirmation ou rediriger vers une page de succès
-        return render(request, 'madot/home.html', {'success_message': 'Votre réservation a été envoyée avec succès !'})
+            # Envoi de l'email
+            send_mail(
+                sujet,  # Sujet de l'email
+                message,  # Contenu du message
+                settings.DEFAULT_FROM_EMAIL,  # Adresse de l'expéditeur
+                [settings.DEFAULT_FROM_EMAIL],  # Liste des destinataires
+                fail_silently=False,
+            )
 
-    # Si la requête n'est pas POST, retournez simplement la page
+            # Ajouter un message de succès
+            messages.success(request, "Votre réservation a été envoyée avec succès !")
+
+            # Rediriger vers la page de confirmation (ou une autre page)
+            return redirect('home')
+
+        except Exception as e:
+            # En cas d'erreur, afficher un message d'erreur
+            messages.error(request, f"Une erreur s'est produite : {str(e)}")
+            return render(request, 'madot/home.html')
+
+    # Si la requête n'est pas POST, simplement afficher la page
     return render(request, 'madot/home.html')
+
