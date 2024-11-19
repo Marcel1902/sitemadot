@@ -40,11 +40,13 @@
                 </div>
         </nav>
     </header>
+<div class="container-fluid mb-5">
+    <h1 class="mt-3 me-auto p-3 d-flex align-items-center text-center" style="background-color: #FFA652; margin-left: 6%; border-radius: 50%; width: 15%; height: 25vh; position: absolute; color: white; font-weight: bold;"><span class="text-light" style="margin-left: 8%;">${{ destination.prix }}</span> </h1>
+</div>
     <div class="container mt-5">
         <h1 data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 60px;" class="text-center pb-5">{{ destination.title }}
             <br><span style="font-size: 20px; color: #538135;">{{ destination.les_destinations }}</span></h1>
         <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31;"><strong>HIGHLIGHTS:<br></strong> {{ destination.highlights|linebreaks }}</p>
-        <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 20px;"><strong style="color:#000; font-size: 20px;">Prix:</strong> ${{ destination.prix }}</p>
 
         {% if destination.photo %}
             <img src="{{ destination.photo.url }}" alt="{{ destination.title }}" style="max-width: 100%; height: auto;" data-aos="fade-up-right" data-aos-delay="100">
@@ -54,7 +56,7 @@
             <ul>
                 <!-- Liste des itinéraires pour chaque jour -->
                 {% for itinerary in destination.itineraries.all %}
-                    <li class="pb-5" data-aos="fade-up" data-aos-delay="100">
+                    <li class="pb-5" data-aos="fade-up" data-aos-delay="100" style="list-style: none;">
                         <h3 style="color: #678f4c;">Day {{ itinerary.day_number }}: {{ itinerary.title }}</h3>
                         <p>{{ itinerary.description }}</p>
                         <div class="row">

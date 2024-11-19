@@ -242,7 +242,7 @@
                             <p class="card-text">{{ destination.highlights|linebreaks }}</p>
                             <div class="d-flex justify-content-between">
                                 <a href="{% url 'destination' destination.id %}" class="btn btn-primary" style="background-color: #FFA652; border: none;">Voir plus</a>
-                                <span class="text-right">{{ destination.prix }}$</span>
+                                <span class="badge d-flex align-items-center text-center text-right" style="background-color: #FFA652; border-radius: 20px 15px; font-size: 17px;">{{ destination.prix }}$</span>
                             </div>
                         </div>
                     </div>
