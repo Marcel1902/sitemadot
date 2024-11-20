@@ -29,6 +29,38 @@ body {
   visibility: visible;
   z-index: 1050;
 }
+/* Ajustements pour petits écrans */
+@media (max-width: 768px) {
+    .container .price-bubble {
+        width: 10%;
+        height: 10vh;
+        font-size: 25px;
+        left: 0; /* Réduire le décalage */
+    }
+
+    h1 {
+        font-size: 40px;
+        margin-left: 0;
+    }
+
+    .itinerary {
+        padding: 20px;
+    }
+}
+
+/* Ajustements pour très petits écrans */
+@media (max-width: 576px) {
+    .price-bubble {
+        width: 8%;
+        height: 8vh;
+        font-size: 20px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+}
+
 
 
 .contact .contact-form .btn{

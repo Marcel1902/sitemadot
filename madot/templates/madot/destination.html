@@ -105,44 +105,63 @@
 
     </div>
 </header>
-<div class="container-fluid mb-5">
-    <h1 class="me-auto p-3 d-flex align-items-center text-center" style="background-color: #FFA652; margin-left: 8%; border-radius: 50%; width: 13%; height: 25vh; position: absolute; color: white; font-weight: bold;"><span class="text-light" style="margin-left: 8%;">${{ destination.prix }}</span> </h1>
-</div>
     <div class="container mt-5">
-        <h1 data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 60px;" class="text-center pb-5">{{ destination.title }}
-            <br><span style="font-size: 20px; color: #538135;">{{ destination.les_destinations }}</span></h1>
-        <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31;"><strong>HIGHLIGHTS:<br></strong> {{ destination.highlights|linebreaks }}</p>
-
-        {% if destination.photo %}
-            <img src="{{ destination.photo.url }}" alt="{{ destination.title }}" style="max-width: 100%; height: auto;" data-aos="fade-up-right" data-aos-delay="100">
-        {% endif %}
-        <div class="itinerary mt-5 p-5 mb-5 shadow" data-aos="fade-up" data-aos-delay="100">
-            <h2 style="color:#ed7d31;" class="text-center">ITINERARY</h2>
-            <ul>
-                <!-- Liste des itinéraires pour chaque jour -->
-                {% for itinerary in destination.itineraries.all %}
-                    <li class="pb-5" data-aos="fade-up" data-aos-delay="100" style="list-style: none;">
-                        <h3 style="color: #678f4c;">Day {{ itinerary.day_number }}: {{ itinerary.title }}</h3>
-                        <p>{{ itinerary.description }}</p>
-                        <div class="row">
-                            <div class="col-md-6">
-                                {% if itinerary.photo %}
-                                <img src="{{ itinerary.photo.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
-                                {% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                {% if itinerary.photo2 %}
-                                <img src="{{ itinerary.photo2.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
-                                {% endif %}
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <p data-aos="fade-up" data-aos-delay="100"><strong style="color: #678f4c;">Include:<br></strong> {{ destination.price_include|linebreaks }}</p>
-        <p><strong style="color: #678f4c;">Exclude:<br></strong> {{ destination.price_exclude|linebreaks }}</p>
+    <div class="d-flex align-items-center position-relative">
+        <!-- Le cercle contenant le prix, positionné à gauche du titre -->
+        <span class="price-bubble position-absolute text-center d-flex align-items-center" style="background-color: #FFA652;
+            border-radius: 50%;
+            padding: 20px;
+            width: 15%;
+            height: 20vh;
+            left: -8%; /* Déplace légèrement à gauche */
+            color: white;
+            font-weight: bold;
+            top: 50%;
+            transform: translate(0, -50%);
+            font-size: 35px;
+            ">
+            ${{ destination.prix }}
+        </span>
+        <!-- Le titre du voyage -->
+        <h1 data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31; font-size: 60px; margin-left: 15%;" class="text-center pb-5">
+            {{ destination.title }}
+        </h1>
     </div>
+
+    <p style="font-size: 20px; color: #538135;" class="text-center">{{ destination.les_destinations }}</p>
+    <p data-aos="fade-up" data-aos-delay="100" style="color:#ed7d31;"><strong>HIGHLIGHTS:<br></strong> {{ destination.highlights|linebreaks }}</p>
+
+    {% if destination.photo %}
+        <img src="{{ destination.photo.url }}" alt="{{ destination.title }}" style="max-width: 100%; height: auto;" data-aos="fade-up-right" data-aos-delay="100">
+    {% endif %}
+
+    <div class="itinerary mt-5 p-5 mb-5 shadow" data-aos="fade-up" data-aos-delay="100">
+        <h2 style="color:#ed7d31;" class="text-center">ITINERARY</h2>
+        <ul>
+            {% for itinerary in destination.itineraries.all %}
+                <li class="pb-5" data-aos="fade-up" data-aos-delay="100" style="list-style: none;">
+                    <h3 style="color: #678f4c;">Day {{ itinerary.day_number }}: {{ itinerary.title }}</h3>
+                    <p>{{ itinerary.description }}</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if itinerary.photo %}
+                                <img src="{{ itinerary.photo.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {% if itinerary.photo2 %}
+                                <img src="{{ itinerary.photo2.url }}" alt="{{ itinerary.title }}" style="max-width: 100%; max-height: 32vh;" data-aos="fade-up-left" data-aos-delay="100">
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+        <p data-aos="fade-up" data-aos-delay="100"><strong style="color: #678f4c;">Include:<br></strong> {{ destination.price_include|linebreaks }}</p>
+    <p><strong style="color: #678f4c;">Exclude:<br></strong> {{ destination.price_exclude|linebreaks }}</p>
+</div>
+
 <footer class="footer p-5 mt-5">
     <div class="container">
         <p class="text-center">&copy; madagas_tours outbound. All rights reserved.</p>
