@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{% static 'madot/images/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'madot/css/destination.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -25,7 +28,9 @@
                                 <a class="nav-link active" href="{% url 'home' %}">Accueil</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn active" type="button" href="#" style="background-color: #FFA652; font-weight: bold;border-radius: 10px;">Book Now</a>
+                                <button class="nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#destinationform" aria-label="Open booking form">
+                                    Book Now
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -39,7 +44,67 @@
                     </form>
                 </div>
         </nav>
-    </header>
+    <!-- Modal -->
+<div class="modal fade" id="destinationform" tabindex="-1" aria-labelledby="destinationformLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-height: 80vh;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" style="font-size: 30px; font-family: 'Dancing Script', cursive; font-weight: bolder; color: #FFA652;" id="destinationformLabel">Book Your Destination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'send' %}" method="post">
+                <!-- CSRF Token -->
+                {% csrf_token %}
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    <div class="mb-3">
+                        <label for="destination" class="form-label">Choisissez une destination:</label>
+                        <select class="form-select" id="destination" name="destination" required>
+                            <option value="{{ destination.title }}" data-duration="{{ destination.duration }}">{{ destination.title }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Votre Nom:</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom et Prénom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adresse" class="form-label">Adresse:</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mail-adresse" class="form-label">Votre Email:</label>
+                        <input type="email" class="form-control" id="mail-adresse" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Téléphone:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nb_personnes" class="form-label">Nombre de personnes:</label>
+                        <input type="number" class="form-control" id="nb_personnes" name="nb_personnes" value="1" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_depart" class="form-label">Date de départ:</label>
+                        <input type="date" class="form-control" id="date_depart" name="date_depart" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_retour" class="form-label">Date de retour:</label>
+                        <input type="date" class="form-control" id="date_retour" name="date_retour" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commentaire" class="form-label">Commentaires:</label>
+                        <textarea class="form-control" id="commentaire" name="commentaire" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Réserver</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    </div>
+</header>
 <div class="container-fluid mb-5">
     <h1 class="me-auto p-3 d-flex align-items-center text-center" style="background-color: #FFA652; margin-left: 8%; border-radius: 50%; width: 13%; height: 25vh; position: absolute; color: white; font-weight: bold;"><span class="text-light" style="margin-left: 8%;">${{ destination.prix }}</span> </h1>
 </div>

@@ -20,4 +20,19 @@ body {
     border-radius: 10px;
     padding: 10px 30px;
 }
+.modal-header h5{
+    font-family: "Dancing Script", cursive;
+}
 
+.modal-footer button {
+  display: block;
+  visibility: visible;
+  z-index: 1050;
+}
+
+
+.contact .contact-form .btn{
+background-color: #FFA652;
+font-family: "Poppins", sans-serif;
+border: none;
+}

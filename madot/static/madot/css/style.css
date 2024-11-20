@@ -73,61 +73,6 @@ body {
 }
 
 /*--------------------------------------------------------------
-# About Section
---------------------------------------------------------------*/
-.about .btn-get-started {
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
-  border-radius: 30px;
-  padding: 8px 30px;
-  border: 2px solid transparent;
-  transition: 0.3s all ease-in-out;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-}
-
-.about .btn-get-started:hover {
-  border-color: var(--accent-color);
-  background-color: transparent;
-  color: var(--accent-color);
-}
-
-.about h1 {
-  color: var(--heading-color);
-  font-size: 30px;
-  font-family: "Poppins", sans-serif;
-}
-
-.about p {
-  line-height: 1.7;
-  color: var(--default-color);
-  font-family: "Poppins", sans-serif;
-}
-
-.about .swiper-pagination {
-  position: absolute;
-  bottom: 30px;
-}
-
-.about .swiper-pagination .swiper-pagination-bullet {
-  margin: 0 5px;
-  background: #ffffff;
-  opacity: 0.3;
-}
-
-.about .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: var(--accent-color);
-  opacity: 1;
-}
-
-.about .section-subtitle {
-  font-size: 15px;
-  margin-bottom: 10px;
-  display: block;
-  color: var(--default-color);
-}
-
-/*--------------------------------------------------------------
 # About 2 Section
 --------------------------------------------------------------*/
 .about-2 .content {
@@ -281,16 +226,6 @@ font-weight: bold;
     height: 40vh;
     width: 100%;
 }
-.modal-dialog-scrollable .modal-body {
-    overflow-y: auto; /* Assure le défilement vertical */
-    max-height: calc(100vh - 200px); /* Ajustez la hauteur maximale */
-}
-
-.modal-body {
-    max-height: 70vh; /* Ajustez la hauteur si nécessaire */
-    overflow-y: auto; /* Active le scroll vertical */
-}
-
 
 .contact .contact-form .btn{
 background-color: #FFA652;
