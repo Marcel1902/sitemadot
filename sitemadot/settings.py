@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +29,43 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'madot',
 ]
+
+JAZZMIN_SETTINGS = {
+    # Nom et sous-titre
+    "site_title": "MADAGASTOURS Admin",
+    "site_header": "Admin MADAGASTOURS",
+    "welcome_sign": "Bienvenue sur l'administration de MADAGASTOURS",
+
+    # Personnalisation du menu
+    "custom_links": {
+        "app_label": [{
+            "name": "Statistiques",
+            "url": "custom-stats-view",
+            "icon": "fas fa-chart-line",
+        }],
+    },
+
+    # Icônes pour les modèles
+    "icons": {
+        "auth.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "madot.Destination": "fas fa-plane",
+    },
+
+    # Interface utilisateur
+    "show_version": False,  # Masquer la version de Jazzmin
+    "ui_darkmode": True,  # Utiliser le mode sombre
+    "show_sidebar_menu": True,  # Afficher le menu latéral
+    "menu_icon_classes": "fas fa-bars",  # Icône du menu
+    "show_submenu_icons": True,  # Afficher les icônes des sous-menus
+    "hide_sidebar_menu_items": [],  # Masquer des éléments du menu latéral
+    "hide_sidebar_menu_icons": [],  # Masquer des icônes du menu latéral
+    "show_footer": True,  # Afficher le pied de page
+    "default_menu_item": "home",  # Élément de menu par défaut
+    "navigation_expanded": True,  # Toujours afficher le menu complet
+    "order_with_respect_to": ["auth", "madot"],  # Ordre des applications
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
