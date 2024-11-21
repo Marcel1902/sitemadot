@@ -72,6 +72,26 @@ body {
     font-family: "Poppins", sans-serif;
 }
 
+.navbar-toggler {
+    border: none;
+    outline: none;
+}
+
+
+.search a {
+    font-size: 17px;
+    text-decoration: none;
+    font-weight: 500;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .search {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
 /*--------------------------------------------------------------
 # About 2 Section
 --------------------------------------------------------------*/
@@ -221,6 +241,23 @@ font-family: "Poppins", sans-serif;
 font-weight: bold;
 }
 
+.modal-header h5 {
+    font-family: "Dancing Script", cursive;
+}
+
+.modal-footer {
+    display: flex !important;
+    visibility: visible !important;
+    z-index: 1050;
+    justify-content: flex-end;
+}
+
+.modal-footer button {
+    visibility: visible !important;
+    display: block !important;
+}
+
+
 
 .about-2 img{
     height: 40vh;
@@ -231,6 +268,14 @@ font-weight: bold;
 background-color: #FFA652;
 font-family: "Poppins", sans-serif;
 border: none;
+}
+
+input:invalid, textarea:invalid {
+    border-color: red;
+}
+
+input:valid, textarea:valid {
+    border-color: green;
 }
 
 .footer{

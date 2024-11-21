@@ -77,64 +77,64 @@
 
     <!-- Modal -->
     <div class="modal fade" id="destinationform" tabindex="-1" aria-labelledby="destinationformLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center"  style="font-size: 30px;font-family: 'Dancing Script', cursive; font-weight: bolder; color: #FFA652;" id="destinationformLabel">Book Your Destination</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{% url 'send' %}" method="post">
-                    <!-- CSRF Token -->
-                    {% csrf_token %}
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="destination" class="form-label">Choisissez une destination:</label>
-                            <select class="form-select" id="destination" name="destination" required>
-                                {% for destination in destinations %}
-                                    <option value="{{ destination.title }}" data-duration="{{ destination.duration }}">{{ destination.title }} </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nom" class="form-label">Votre Nom:</label>
-                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom et Prénom" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="adresse" class="form-label">Adresse:</label>
-                            <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mail-adresse" class="form-label">Votre Email:</label>
-                            <input type="email" class="form-control" id="mail-adresse" name="email" placeholder="Email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Téléphone:</label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nb_personnes" class="form-label">Nombre de personnes:</label>
-                            <input type="number" class="form-control" id="nb_personnes" name="nb_personnes" value="1" min="1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date_depart" class="form-label">Date de départ:</label>
-                            <input type="date" class="form-control" id="date_depart" name="date_depart" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="date_retour" class="form-label">Date de retour:</label>
-                            <input type="date" class="form-control" id="date_retour" name="date_retour" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="commentaire" class="form-label">Commentaires:</label>
-                            <textarea class="form-control" id="commentaire" name="commentaire" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Réserver</button>
-                    </div>
-                </form>
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-height: 90vh;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" style="font-size: 30px; font-family: 'Dancing Script', cursive; font-weight: bolder; color: #FFA652;" id="destinationformLabel">Book Your Destination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <form action="{% url 'send' %}" method="post">
+                <!-- CSRF Token -->
+                {% csrf_token %}
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    <div class="mb-3">
+                        <label for="destination" class="form-label">Choisissez une destination:</label>
+                        <select class="form-select" id="destination" name="destination" required>
+                            {% for destination in destinations %}
+                                <option value="{{ destination.title }}" data-duration="{{ destination.duration }}">{{ destination.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Votre Nom:</label>
+                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom et Prénom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="adresse" class="form-label">Adresse:</label>
+                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mail-adresse" class="form-label">Votre Email:</label>
+                        <input type="email" class="form-control" id="mail-adresse" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Téléphone:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Téléphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nb_personnes" class="form-label">Nombre de personnes:</label>
+                        <input type="number" class="form-control" id="nb_personnes" name="nb_personnes" value="1" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_depart" class="form-label">Date de départ:</label>
+                        <input type="date" class="form-control" id="date_depart" name="date_depart" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_retour" class="form-label">Date de retour:</label>
+                        <input type="date" class="form-control" id="date_retour" name="date_retour" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="commentaire" class="form-label">Commentaires:</label>
+                        <textarea class="form-control" id="commentaire" name="commentaire" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Réserver</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </header>
 
 
