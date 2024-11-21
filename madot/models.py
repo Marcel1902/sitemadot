@@ -18,6 +18,7 @@ class DayItinerary(models.Model):
     destination = models.ForeignKey(Destination, on_delete=models.CASCADE, related_name='itineraries')
     day_number = models.PositiveIntegerField()
     title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField()  # Détails du jour (activités, lieux visités, etc.)
     photo = models.ImageField(upload_to="media", blank=True, null=True)
     photo2 = models.ImageField(upload_to="media", blank=True, null=True)

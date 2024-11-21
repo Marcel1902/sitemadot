@@ -142,7 +142,13 @@
         <ul>
             {% for itinerary in destination.itineraries.all %}
                 <li class="pb-5" data-aos="fade-up" data-aos-delay="100" style="list-style: none;">
-                    <h3 style="color: #678f4c;">Day {{ itinerary.day_number }}: {{ itinerary.title }}</h3>
+                    <h3 style="color: #678f4c;"><span style="font-size: 16px;">Day {{ itinerary.day_number }}:</span>{{ itinerary.title }}
+                        {% if itinerary.subtitle %}
+                            <span style="font-size: 16px;">
+                            {{ itinerary.subtitle }}
+                            </span>
+                        {% endif %}
+                    </h3>
                     <p>{{ itinerary.description }}</p>
                     <div class="row">
                         <div class="col-md-6">
