@@ -32,6 +32,12 @@
                                     Book Now
                                 </button>
                             </li>
+                            <li class="nav-item">
+                                <!-- Book Now Button -->
+                                <button class="nav-link btn" type="button" data-bs-toggle="modal" data-bs-target="#reservewhatsapp" aria-label="Open booking form">
+                                    Book with whatsapp
+                                </button>
+                            </li>
                         </ul>
                     </div>
                     <button class="navbar-toggler flex-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,13 +110,72 @@
         </div>
     </div>
 </div>
+    <!-- Modal -->
+    <div class="modal fade" id="reservewhatsapp" tabindex="-1" aria-labelledby="destinationformLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-height: 90vh;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" style="font-size: 30px; font-family: 'Dancing Script', cursive; font-weight: bolder; color: #FFA652;" id="destinationformLabel1">Book Your Destination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'send_to_whatsapp' %}" method="post">
+                <!-- CSRF Token -->
+                {% csrf_token %}
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    <div class="mb-3">
+                        <label for="destination" class="form-label">Choisissez une destination:</label>
+                        <select class="form-select" id="destination1" name="destination1" required>
+                            <option value="{{ destination.title }}" data-duration="{{ destination.duration }}">{{ destination.title }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="yourname" class="form-label">Votre Nom:</label>
+                        <input type="text" class="form-control" id="yourname" name="yourname" placeholder="Nom et Prénom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="youradresse" class="form-label">Adresse:</label>
+                        <input type="text" class="form-control" id="youradresse" name="youradresse" placeholder="Adresse" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="yourmail-adresse" class="form-label">Votre Email:</label>
+                        <input type="email" class="form-control" id="yourmail-adresse" name="yourmail-adresse" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="yourphone" class="form-label">Téléphone:</label>
+                        <input type="text" class="form-control" id="yourphone" name="yourphone" placeholder="Téléphone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre_personnes" class="form-label">Nombre de personnes:</label>
+                        <input type="number" class="form-control" id="nombre_personnes" name="nombre_personnes" value="1" min="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="depart_date" class="form-label">Date de départ:</label>
+                        <input type="date" class="form-control" id="depart_date" name="depart_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="retour_date" class="form-label">Date de retour:</label>
+                        <input type="date" class="form-control" id="retour_date" name="retour_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="comments" class="form-label">Commentaires:</label>
+                        <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Réserver</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     </div>
 </header>
     <div class="container mt-5">
     <div class="d-flex align-items-center position-relative">
         <!-- Le cercle contenant le prix, positionné à gauche du titre -->
-        <span class="price-bubble position-absolute text-center d-flex align-items-center" style="background-color: #FFA652;
+        <span class="price-bubble position-absolute text-center d-flex align-items-center" style="
+            position: absolute;
+            background-color: #FFA652;
             border-radius: 50%;
             padding: 20px;
             width: 15%;

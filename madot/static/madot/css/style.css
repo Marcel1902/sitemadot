@@ -34,28 +34,31 @@ body {
 .carousel-item {
   position: relative;
 }
-
+/*
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Couleur de la superposition semi-transparente */
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
 }
-
+*/
 .carousel-caption.centered-caption {
   position: absolute;
-  top: 55%;
-  left: 50%;
+  top: 65%;
+  left: 75%;
   transform: translate(-50%, -50%);
   text-align: center;
   font-family: "Poppins", sans-serif;
   z-index: 2; /* Assure que la légende est au-dessus de la superposition */
-  width: 80%;
+  width: 40%;
+  height: auto;
   color: white;
+  background-color: rgba(0, 0, 0, 0.5)
 }
+
 .carousel-caption h3{
     font-size: 60px;
     color: #FFA652; /* Jaune pour le titre */
